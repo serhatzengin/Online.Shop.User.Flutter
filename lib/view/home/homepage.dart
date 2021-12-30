@@ -3,6 +3,7 @@ import 'package:online_shop_user/component/custom_drawer.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
 import 'package:online_shop_user/global/globaal.dart';
 
+import 'mainpage/mainpage_view.dart';
 import 'my_profile/my_profile_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,10 +18,7 @@ class _HomePageState extends State<HomePage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    MainPage(),
     Text(
       'Index 1: Business',
       style: optionStyle,
@@ -49,7 +47,7 @@ class _HomePageState extends State<HomePage> {
         show: true,
         name: sharedPreferences!.getString("name")!,
       ),
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

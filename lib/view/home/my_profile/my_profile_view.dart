@@ -103,13 +103,6 @@ class _MyProfileViewState extends State<MyProfileView> {
                 ],
               ),
             ),
-            // CustomButton(
-            //   buttonText: "Çıkış Yap",
-            //   pressed: () {
-            //     firebaseAuth.signOut().whenComplete(() => Navigator.push(
-            //         (context), MaterialPageRoute(builder: (c) => AuthPage())));
-            //   },
-            // ),
           ],
         ),
       ),
