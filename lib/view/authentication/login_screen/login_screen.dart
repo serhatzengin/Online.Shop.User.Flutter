@@ -68,18 +68,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future readAndSetDataLocally(User currentUser) async {
     await FirebaseFirestore.instance
-        .collection("riders")
+        .collection("users")
         .doc(currentUser.uid)
         .get()
         .then((snapshot) async {
       if (snapshot.exists) {
         await sharedPreferences!.setString("uid", currentUser.uid);
+        await sharedPreferences!.setString("email", snapshot.data()!["email"]);
+        await sharedPreferences!.setString("name", snapshot.data()!["name"]);
         await sharedPreferences!
-            .setString("email", snapshot.data()!["riderEmail"]);
-        await sharedPreferences!
-            .setString("name", snapshot.data()!["riderName"]);
-        await sharedPreferences!
-            .setString("photoUrl", snapshot.data()!["riderEmail"]);
+            .setString("photoUrl", snapshot.data()!["photoUrl"]);
         Navigator.pop(context);
         Route newRoute = MaterialPageRoute(builder: (c) => const HomePage());
         Navigator.pushReplacement(context, newRoute);

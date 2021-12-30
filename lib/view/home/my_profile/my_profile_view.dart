@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop_user/component/custom_button.dart';
 import 'package:online_shop_user/global/globaal.dart';
 import 'package:online_shop_user/view/authentication/auth_screen/auth_screen.dart';
-
 
 class MyProfileView extends StatefulWidget {
   const MyProfileView({Key? key}) : super(key: key);
@@ -12,73 +10,109 @@ class MyProfileView extends StatefulWidget {
 }
 
 class _MyProfileViewState extends State<MyProfileView> {
-  List stocksList = [
-    CompanyStocks(name: "Facebook", price: 339.1),
-    CompanyStocks(name: "A10 NETWORKS INC.", price: 10.34),
-    CompanyStocks(name: "Intel Corp", price: 56.96),
-    CompanyStocks(name: "HP Inc", price: 32.43),
-    CompanyStocks(name: "Advanced Micro Devices Inc.", price: 77.44),
-    CompanyStocks(name: "Apple Inc", price: 133.98),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
           children: [
-            const Expanded(
-              flex: 1,
-              child: SizedBox(),
-            ),
             Expanded(
-              flex: 3,
-              child: ListView.builder(
-                itemCount: stocksList.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ListTile(
-                        title: Text(
-                          stocksList[index].name,
-                          style: const TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        leading: CircleAvatar(
-                          child: Text(
-                            stocksList[index].name[0],
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        trailing: const Icon(Icons.arrow_forward_ios_rounded),
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    child: ClipOval(
+                      child: Image.network(
+                        sharedPreferences!.getString("photoUrl")!,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  );
-                },
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    sharedPreferences!.getString("name")!,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ],
               ),
             ),
-            CustomButton(
-              buttonText: "Çıkış Yap",
-              pressed: () {
-                firebaseAuth.signOut().whenComplete(() => Navigator.push(
-                    (context), MaterialPageRoute(builder: (c) => AuthPage())));
-              },
-            )
+            Expanded(
+              flex: 4,
+              child: ListView(
+                children: [
+                  const Divider(height: 10),
+                  Card(
+                    child: ListTile(
+                      leading: const Icon(Icons.person, color: Colors.black),
+                      title: const Text("Profili Düzenle"),
+                      onTap: () {},
+                    ),
+                  ),
+                  Card(
+                    child: ListTile(
+                      leading: const Icon(Icons.shop, color: Colors.black),
+                      title: const Text("Siparişlerim"),
+                      onTap: () {},
+                    ),
+                  ),
+                  Card(
+                    child: ListTile(
+                      leading: const Icon(Icons.history, color: Colors.black),
+                      title: const Text("Geçmiş"),
+                      onTap: () {},
+                    ),
+                  ),
+                  Card(
+                    child: ListTile(
+                      leading: const Icon(Icons.search, color: Colors.black),
+                      title: const Text("Ara"),
+                      onTap: () {},
+                    ),
+                  ),
+                  Card(
+                    child: ListTile(
+                      leading:
+                          const Icon(Icons.add_location, color: Colors.black),
+                      title: const Text("Adres Ekle"),
+                      onTap: () {},
+                    ),
+                  ),
+                  Card(
+                    child: ListTile(
+                      leading: const Icon(Icons.password, color: Colors.black),
+                      title: const Text("Şifre Güncelle"),
+                      onTap: () {},
+                    ),
+                  ),
+                  Card(
+                    child: ListTile(
+                      leading:
+                          const Icon(Icons.exit_to_app, color: Colors.black),
+                      title: const Text("Çıkış Yap"),
+                      onTap: () {
+                        firebaseAuth.signOut().whenComplete(() =>
+                            Navigator.push((context),
+                                MaterialPageRoute(builder: (c) => AuthPage())));
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+            // CustomButton(
+            //   buttonText: "Çıkış Yap",
+            //   pressed: () {
+            //     firebaseAuth.signOut().whenComplete(() => Navigator.push(
+            //         (context), MaterialPageRoute(builder: (c) => AuthPage())));
+            //   },
+            // ),
           ],
         ),
       ),
     );
   }
-}
-
-class CompanyStocks {
-  String name;
-  double price;
-  CompanyStocks({
-    required this.name,
-    required this.price,
-  });
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_shop_user/component/custom_drawer.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
 import 'package:online_shop_user/global/globaal.dart';
 
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
         show: true,
         name: sharedPreferences!.getString("name")!,
       ),
+      drawer: CustomDrawer(),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -66,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Paketlerim',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.usb_rounded),
+            icon: Icon(Icons.person),
             label: 'Hesabım',
           ),
           BottomNavigationBarItem(
