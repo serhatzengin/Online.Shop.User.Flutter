@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:online_shop_user/component/my_app_bar.dart';
+import 'package:online_shop_user/global/globaal.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -76,7 +78,52 @@ class MainPage extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                   )),
             ),
-          )
+          ),
+
+          // StreamBuilder<QuerySnapshot>(
+          //   stream: FirebaseFirestore.instance.collection("users").snapshots(),
+          //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+          //     if (snapshot.hasError) {
+          //       return const Text('Something went wrong');
+          //     }
+
+          //     if (snapshot.connectionState == ConnectionState.waiting) {
+          //       return const Text("Loading");
+          //     }
+          //     return
+
+          //         // SliverStaggeredGrid.countBuilder(
+          //         //   crossAxisCount: 1,
+          //         //   staggeredTileBuilder: (context) => const StaggeredTile.fit(1),
+          //         //   itemBuilder: (contex, index) {
+          //         //     Sellers sModel = Sellers.fromJson(snapshot.data!.docs[index]
+          //         //         .data()! as Map<String, dynamic>);
+
+          //         //     return InfoDesign(
+          //         //       context: context,
+          //         //       model: sModel,
+          //         //     );
+          //         //   },
+          //         //   itemCount: snapshot.data!.docs.length,
+          //         // );
+
+          //         //-------
+          //         GridView.builder(
+          //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //         crossAxisCount: 1,
+          //       ),
+          //       itemCount: snapshot.data!.docs.length,
+          //       itemBuilder: (BuildContext context, int index) {
+          //         Sellers sModel = Sellers.fromJson(snapshot.data!.docs[index]
+          //             .data()! as Map<String, dynamic>);
+          //         return InfoDesign(
+          //           context: context,
+          //           model: sModel,
+          //         );
+          //       },
+          //     );
+          //   },
+          // ),
         ],
       ),
     );
