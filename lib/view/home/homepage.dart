@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_shop_user/component/custom_drawer.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
 import 'package:online_shop_user/global/global.dart';
+import 'package:online_shop_user/view/home/cart/cart_view.dart';
 
 import 'mainpage/mainpage_view.dart';
 import 'my_profile/my_profile_view.dart';
@@ -19,10 +20,7 @@ class _HomePageState extends State<HomePage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     MainPage(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    CartPage(),
     Text(
       'Index 2: School',
       style: optionStyle,
