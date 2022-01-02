@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:online_shop_user/Config/config.dart';
 import 'package:online_shop_user/component/custom_button.dart';
 import 'package:online_shop_user/component/custom_text_field.dart';
 import 'package:online_shop_user/component/error_dialog.dart';
 import 'package:online_shop_user/component/loading_dialog.dart';
-import 'package:online_shop_user/global/globaal.dart';
+import 'package:online_shop_user/global/global.dart';
 import 'package:online_shop_user/view/authentication/auth_screen/auth_screen.dart';
 import 'package:online_shop_user/view/home/homepage.dart';
 
@@ -78,6 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
         await sharedPreferences!.setString("name", snapshot.data()!["name"]);
         await sharedPreferences!
             .setString("photoUrl", snapshot.data()!["photoUrl"]);
+
+        List<String> cartList =
+            snapshot.data()![EcommerceApp.userCartList].cast<String>();
+
+        await sharedPreferences!
+            .setStringList(EcommerceApp.userCartList, cartList);
+
         Navigator.pop(context);
         Route newRoute = MaterialPageRoute(builder: (c) => const HomePage());
         Navigator.pushReplacement(context, newRoute);

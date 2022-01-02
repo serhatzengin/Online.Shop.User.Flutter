@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop_user/global/globaal.dart';
+import 'package:online_shop_user/global/global.dart';
 import 'package:online_shop_user/view/authentication/auth_screen/auth_screen.dart';
 
 class MyProfileView extends StatefulWidget {

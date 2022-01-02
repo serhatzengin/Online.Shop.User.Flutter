@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop_user/global/globaal.dart';
+import 'package:online_shop_user/global/global.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);

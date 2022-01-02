@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop_user/global/globaal.dart';
+import 'package:online_shop_user/global/global.dart';
 import 'package:online_shop_user/view/authentication/auth_screen/auth_screen.dart';
 import 'package:online_shop_user/view/home/homepage.dart';
 
@@ -26,6 +26,7 @@ class _SplashState extends State<Splash> {
           : Navigator.push(
               context, MaterialPageRoute(builder: (context) => AuthPage()));
     });
+    // https://flutterdersleri.com/navigator-pushreplacement.html
   }
 
   @override

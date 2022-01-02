@@ -7,13 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:online_shop_user/config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:online_shop_user/component/custom_button.dart';
 import 'package:online_shop_user/component/custom_text_field.dart';
 import 'package:online_shop_user/component/error_dialog.dart';
 import 'package:online_shop_user/component/loading_dialog.dart';
-import 'package:online_shop_user/global/globaal.dart';
+import 'package:online_shop_user/global/global.dart';
 import 'package:online_shop_user/view/home/homepage.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -70,6 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           //start uploading
 
           showDialog(
+              barrierDismissible: false,
               context: context,
               builder: (c) {
                 return const LoadingDialog(
@@ -105,6 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           signUpWithEmail();
         } else {
           showDialog(
+            barrierDismissible: false,
             context: context,
             builder: (BuildContext context) {
               return const ErrorDialog(
@@ -115,6 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
       } else {
         showDialog(
+          barrierDismissible: false,
           context: context,
           builder: (BuildContext context) {
             return const ErrorDialog(
@@ -166,6 +170,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "phone": phoneController.text.trim(),
       //todo ileride telefon numarası kaldırılmadığı için kod hata verebilir
       "status": "approved",
+      EcommerceApp.userCartList: ["garbageValue"]
     });
 
     //save data locally
@@ -174,6 +179,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     await sharedPreferences!.setString("email", currentUser.email.toString());
     await sharedPreferences!.setString("name", nameController.text.trim());
     await sharedPreferences!.setString("photoUrl", userImageUrl);
+    await sharedPreferences!
+        .setStringList(EcommerceApp.userCartList, ["garbageValue"]);
   }
 
   @override
