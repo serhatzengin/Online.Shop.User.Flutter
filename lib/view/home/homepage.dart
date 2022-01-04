@@ -41,10 +41,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        show: true,
-        name: sharedPreferences!.getString("name")!,
-      ),
+      // appBar: CustomAppBar(
+      //   show: true,
+      //   name: sharedPreferences!.getString("name")!,
+      // ),
       drawer: const CustomDrawer(),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

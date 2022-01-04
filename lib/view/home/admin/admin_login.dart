@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:online_shop_user/component/custom_button.dart';
 import 'package:online_shop_user/component/custom_text_field.dart';
 import 'package:online_shop_user/component/error_dialog.dart';
+import 'package:online_shop_user/view/home/admin/upload_items.dart';
 import 'package:online_shop_user/view/home/homepage.dart';
 
 class AdminSignInPage extends StatefulWidget {
@@ -58,7 +59,7 @@ class _AdminSignInPageState extends State<AdminSignInPage> {
               passwordController.text = "";
             });
 
-            Route route = MaterialPageRoute(builder: (c) => HomePage());
+            Route route = MaterialPageRoute(builder: (c) => const UploadPage());
             Navigator.pushReplacement(context, route);
           }
         }

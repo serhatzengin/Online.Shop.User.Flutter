@@ -6,6 +6,7 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   bool? isObsecre = true;
   bool? enabled = true;
+  final TextInputType? keyboardType;
 
   CustomTextField({
     Key? key,
@@ -14,6 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.hintText,
     this.isObsecre,
     this.enabled,
+    this.keyboardType,
   }) : super(key: key);
 
   @override
@@ -25,9 +27,10 @@ class CustomTextField extends StatelessWidget {
           Radius.circular(10),
         ),
       ),
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.all(14),
+      padding: const EdgeInsets.all(4),
+      margin: const EdgeInsets.all(4),
       child: TextFormField(
+        keyboardType: keyboardType,
         enabled: enabled,
         controller: controller,
         obscureText: isObsecre!,

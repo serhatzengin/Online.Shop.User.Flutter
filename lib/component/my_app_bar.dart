@@ -1,19 +1,23 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:online_shop_user/view/home/admin/admin_shift_orders.dart';
 import 'package:online_shop_user/view/home/cart/cart_view.dart';
 import 'package:online_shop_user/view/home/cart/cart_view_model.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   bool show;
+  bool? showAdminShiftOrders;
   final String name;
 
   @override
   final Size preferredSize;
 
-  CustomAppBar({Key? key, required this.show, required this.name})
-      : preferredSize = const Size.fromHeight(56.0),
+  CustomAppBar({
+    Key? key,
+    this.showAdminShiftOrders,
+    required this.show,
+    required this.name,
+  })  : preferredSize = const Size.fromHeight(56.0),
         super(key: key);
 
   @override
@@ -49,6 +53,15 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           ],
         )
       ],
+      leading: showAdminShiftOrders == true
+          ? IconButton(
+              onPressed: () {
+                Route route =
+                    MaterialPageRoute(builder: (c) => const AdminShiftOrders());
+                Navigator.pushReplacement(context, route);
+              },
+              icon: const Icon(Icons.border_color))
+          : const Icon(null),
       automaticallyImplyLeading: true,
     );
   }

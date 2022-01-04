@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shop_user/view/authentication/login_screen/login_screen.dart';
 import 'package:online_shop_user/view/authentication/register_screen/register_screen.dart';
-import 'package:online_shop_user/view/home/admin_login.dart';
+import 'package:online_shop_user/view/home/admin/admin_login.dart';
 import '../login_screen/loginscreen_temporary.dart';
 
 class AuthPage extends StatelessWidget {
