@@ -1,10 +1,15 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as fStorage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:online_shop_user/component/custom_button_icon.dart';
 import 'package:online_shop_user/component/custom_text_field.dart';
 import 'package:online_shop_user/component/loadingWidget.dart';
+import 'package:online_shop_user/component/loading_dialog.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
 
 class UploadPage extends StatefulWidget {
@@ -23,12 +28,13 @@ class _UploadPageState extends State<UploadPage>
   //galeriden ya da kameradan resim seçmeye yarar
   XFile? imageXfile;
   //seçilen resim atanır
+  String userImageUrl = "";
 
   TextEditingController desctriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController shortInfoController = TextEditingController();
-  String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+  String productId = DateTime.now().millisecondsSinceEpoch.toString();
   bool uploading = false;
 
   @override
@@ -66,7 +72,6 @@ class _UploadPageState extends State<UploadPage>
       body: Center(
         child: ListView(
           children: [
-            uploading ? linearProgress() : const Text(""),
             SizedBox(
               height: 230,
               child: AspectRatio(
@@ -123,7 +128,14 @@ class _UploadPageState extends State<UploadPage>
               pressed: () {
                 clearForm();
               },
-            )
+            ),
+            CustomButtonIcon(
+              buttonText: "Ekle",
+              icon: Icons.add,
+              pressed: () {
+                uploading ? null : uploadImageAndSaveItemInfo();
+              },
+            ),
           ],
         ),
       ),
@@ -133,6 +145,62 @@ class _UploadPageState extends State<UploadPage>
   clearForm() {
     setState(() {
       imageXfile = null;
+      desctriptionController.clear();
+      priceController.clear();
+      titleController.clear();
+      shortInfoController.clear();
+    });
+  }
+
+  uploadImageAndSaveItemInfo() async {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return const LoadingDialog(
+          message: "Giriş Yapılıyor, Lütfen Bekeleyiniz!",
+        );
+      },
+    );
+
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+    debugPrint(fileName.toString());
+
+    fStorage.Reference reference =
+        fStorage.FirebaseStorage.instance.ref().child("items").child(fileName);
+
+    fStorage.UploadTask uploadTask = reference.putFile(
+      File(imageXfile!.path),
+    );
+
+    fStorage.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Picture Succesfully Installed..."),
+      ));
+    });
+
+    await taskSnapshot.ref.getDownloadURL().then((url) {
+      userImageUrl = url;
+    });
+    saveItemInfo();
+  }
+
+  Future saveItemInfo() async {
+    FirebaseFirestore.instance.collection("items").doc(productId).set({
+      "shortInfo": shortInfoController.text.trim(),
+      "longDescription": desctriptionController.text.trim(),
+      "price": int.parse(priceController.text),
+      "publishedDate": DateTime.now(),
+      "status": "available",
+      "thumbnailUrl": userImageUrl,
+      "title": titleController.text.trim(),
+    });
+
+    setState(() {
+      Navigator.pop(context);
+      imageXfile = null;
+      productId = DateTime.now().millisecondsSinceEpoch.toString();
       desctriptionController.clear();
       priceController.clear();
       titleController.clear();
