@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "395966164246",
+    "project_id": "onlineshopflutter-6cd15",
+    "storage_bucket": "onlineshopflutter-6cd15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395966164246:android:92f70a0ec7b30a5e5d7437",
+        "android_client_info": {
+          "package_name": "com.example.online_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395966164246-5f3jrsihjq3qivfp3e3uitpc109uq4ul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFSLgCwiUno4nQwmpD_ccGEnX5KSKTWvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395966164246-5f3jrsihjq3qivfp3e3uitpc109uq4ul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395966164246:android:470c9c713bdd47f05d7437",
+        "android_client_info": {
+          "package_name": "com.example.online_shop_carrier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395966164246-5f3jrsihjq3qivfp3e3uitpc109uq4ul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFSLgCwiUno4nQwmpD_ccGEnX5KSKTWvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395966164246-5f3jrsihjq3qivfp3e3uitpc109uq4ul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395966164246:android:194001f72d9d9f5d5d7437",
+        "android_client_info": {
+          "package_name": "com.example.online_shop_user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395966164246-5f3jrsihjq3qivfp3e3uitpc109uq4ul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFSLgCwiUno4nQwmpD_ccGEnX5KSKTWvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395966164246-5f3jrsihjq3qivfp3e3uitpc109uq4ul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
