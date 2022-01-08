@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -158,7 +157,7 @@ class _UploadPageState extends State<UploadPage>
       context: context,
       builder: (BuildContext context) {
         return const LoadingDialog(
-          message: "Giriş Yapılıyor, Lütfen Bekeleyiniz!",
+          message: "Ürün Ekleniyor ",
         );
       },
     );

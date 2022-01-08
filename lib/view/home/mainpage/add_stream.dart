@@ -25,13 +25,13 @@ class AddUser extends StatelessWidget {
             'company': company, // Stokes and Sons
             'age': age // 42
           })
-          .then((value) => print("User Added"))
-          .catchError((error) => print("Failed to add user: $error"));
+          .then((value) => debugPrint("User Added"))
+          .catchError((error) => debugPrint("Failed to add user: $error"));
     }
 
     return TextButton(
       onPressed: addUser,
-      child: Text(
+      child: const Text(
         "Add User",
       ),
     );

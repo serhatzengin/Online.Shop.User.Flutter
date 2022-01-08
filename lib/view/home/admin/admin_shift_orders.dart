@@ -10,6 +10,6 @@ class AdminShiftOrders extends StatefulWidget {
 class _MyOrdersState extends State<AdminShiftOrders> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:online_shop_user/Config/config.dart';
 import 'package:online_shop_user/component/custom_button.dart';
 import 'package:online_shop_user/component/custom_text_field.dart';
 import 'package:online_shop_user/component/error_dialog.dart';
@@ -80,11 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
         await sharedPreferences!
             .setString("photoUrl", snapshot.data()!["photoUrl"]);
 
-        List<String> cartList =
-            snapshot.data()![EcommerceApp.userCartList].cast<String>();
+        List<String> cartList = snapshot.data()!["userCart"].cast<String>();
 
-        await sharedPreferences!
-            .setStringList(EcommerceApp.userCartList, cartList);
+        await sharedPreferences!.setStringList("userCart", cartList);
 
         Navigator.pop(context);
         Route newRoute = MaterialPageRoute(builder: (c) => const HomePage());

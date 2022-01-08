@@ -21,9 +21,9 @@ class _SplashState extends State<Splash> {
   _navigatetohome() async {
     await Future.delayed(const Duration(milliseconds: 1000), () {
       firebaseAuth.currentUser != null
-          ? Navigator.push(context,
+          ? Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const HomePage()))
-          : Navigator.push(
+          : Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => AuthPage()));
     });
     // https://flutterdersleri.com/navigator-pushreplacement.html

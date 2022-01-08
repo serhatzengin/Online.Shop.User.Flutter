@@ -1,13 +1,10 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:online_shop_user/config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:online_shop_user/component/custom_button.dart';
 import 'package:online_shop_user/component/custom_text_field.dart';
 import 'package:online_shop_user/component/error_dialog.dart';
@@ -166,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "phone": phoneController.text.trim(),
       //todo ileride telefon numarası kaldırılmadığı için kod hata verebilir
       "status": "approved",
-      EcommerceApp.userCartList: ["garbageValue"]
+      "userCart": ["garbageValue"]
     });
 
     //save data locally
@@ -175,8 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     await sharedPreferences!.setString("email", currentUser.email.toString());
     await sharedPreferences!.setString("name", nameController.text.trim());
     await sharedPreferences!.setString("photoUrl", userImageUrl);
-    await sharedPreferences!
-        .setStringList(EcommerceApp.userCartList, ["garbageValue"]);
+    await sharedPreferences!.setStringList("userCart", ["garbageValue"]);
   }
 
   @override

@@ -1,28 +1,116 @@
 import 'package:flutter/material.dart';
 
-import 'package:online_shop_user/model/sellers.dart';
+import 'package:online_shop_user/model/item.dart';
+import 'package:online_shop_user/view/home/mainpage/detail_page.dart';
 
-class InfoDesign extends StatefulWidget {
-  Sellers? model;
+class InfoDesign extends StatelessWidget {
+  ItemModel? model;
   BuildContext context;
+  InfoDesign({
+    Key? key,
+    this.model,
+    required this.context,
+  }) : super(key: key);
 
-  InfoDesign({this.model, required this.context});
-
-  @override
-  _InfoDesignState createState() => _InfoDesignState();
-}
-
-class _InfoDesignState extends State<InfoDesign> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: SizedBox(
-        height: 265,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
+    return Card(
+      child: InkWell(
+        onTap: () {
+          Route route = MaterialPageRoute(
+              builder: (c) => DetailPage(
+                    itemModel: model,
+                  ));
+          Navigator.pushReplacement(context, route);
+        },
+        child: Row(
           children: [
-            Divider(height: 4, thickness: 3, color: Colors.grey[300]),
-            Image.network(widget.model!.sellerAvatarUrl!)
+            Expanded(
+              flex: 2,
+              child: Image.network(
+                model!.thumbnailUrl,
+                width: 140.0,
+                height: 140.0,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              flex: 3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    model!.title,
+                    style: const TextStyle(color: Colors.black, fontSize: 14.0),
+                  ),
+
+                  Text(
+                    model!.shortInfo,
+                    style:
+                        const TextStyle(color: Colors.black54, fontSize: 12.0),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Colors.pink,
+                    ),
+                    width: 40.0,
+                    height: 40.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "50%",
+                          style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        Text(
+                          "OFF",
+                          style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 10.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        r"Old Price: € " +
+                            model!.price /*+ model.price*/ .toString(),
+                        style: const TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              r"New Price: € " + model!.price.toString(),
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  //to implement the cart item aad/remove feature
+                ],
+              ),
+            ),
           ],
         ),
       ),
