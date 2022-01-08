@@ -1,10 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:online_shop_user/component/info_design.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
 import 'package:online_shop_user/component/searchbox.dart';
 import 'package:online_shop_user/global/global.dart';
-import 'package:online_shop_user/view/home/cart/cart_view_model.dart';
-import 'package:provider/provider.dart';
+import 'package:online_shop_user/model/item.dart';
+import 'package:online_shop_user/model/sellers.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -48,90 +51,253 @@ class MainPage extends StatelessWidget {
         show: true,
         showAdminShiftOrders: false,
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * .3,
-              width: MediaQuery.of(context).size.height,
-              child: CarouselSlider(
-                  items: items.map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 1.0),
-                          decoration: const BoxDecoration(color: Colors.amber),
-                          child: Image.asset(
-                            i,
-                            fit: BoxFit.fill,
-                          ),
-                        );
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .3,
+                width: MediaQuery.of(context).size.height,
+                child: CarouselSlider(
+                    items: items.map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(horizontal: 1.0),
+                            decoration:
+                                const BoxDecoration(color: Colors.amber),
+                            child: Image.asset(
+                              i,
+                              fit: BoxFit.fill,
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
+                    options: CarouselOptions(
+                      height: 400,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 0.8,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.decelerate,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
+                    )),
+              ),
+              //SliverPersistentHeader(pinned: true, delegate: SearchBoxDelegate()),
+              SizedBox(
+                height: 500,
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("items")
+                      .limit(15)
+                      .orderBy("publishedDate", descending: true)
+                      .snapshots(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text("Loading...");
+                    }
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                      ),
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        ItemModel model = ItemModel.fromJson(
+                            snapshot.data.docs[index].data()
+                                as Map<String, dynamic>);
+
+                        return sourceInfo(model, context);
                       },
                     );
-                  }).toList(),
-                  options: CarouselOptions(
-                    height: 400,
-                    aspectRatio: 16 / 9,
-                    viewportFraction: 0.8,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    reverse: false,
-                    autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration:
-                        const Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.decelerate,
-                    enlargeCenterPage: true,
-                    scrollDirection: Axis.horizontal,
-                  )),
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+//----------------------------------
+      //     CustomScrollView(
+      //   slivers: [
+      //     SliverToBoxAdapter(
+      //       child: SizedBox(
+      //         height: MediaQuery.of(context).size.height * .3,
+      //         width: MediaQuery.of(context).size.height,
+      //         child: CarouselSlider(
+      //             items: items.map((i) {
+      //               return Builder(
+      //                 builder: (BuildContext context) {
+      //                   return Container(
+      //                     width: MediaQuery.of(context).size.width,
+      //                     margin: const EdgeInsets.symmetric(horizontal: 1.0),
+      //                     decoration: const BoxDecoration(color: Colors.amber),
+      //                     child: Image.asset(
+      //                       i,
+      //                       fit: BoxFit.fill,
+      //                     ),
+      //                   );
+      //                 },
+      //               );
+      //             }).toList(),
+      //             options: CarouselOptions(
+      //               height: 400,
+      //               aspectRatio: 16 / 9,
+      //               viewportFraction: 0.8,
+      //               initialPage: 0,
+      //               enableInfiniteScroll: true,
+      //               reverse: false,
+      //               autoPlay: true,
+      //               autoPlayInterval: const Duration(seconds: 3),
+      //               autoPlayAnimationDuration:
+      //                   const Duration(milliseconds: 800),
+      //               autoPlayCurve: Curves.decelerate,
+      //               enlargeCenterPage: true,
+      //               scrollDirection: Axis.horizontal,
+      //             )),
+      //       ),
+      //     ),
+      //     SliverPersistentHeader(pinned: true, delegate: SearchBoxDelegate()),
+      //     SizedBox(
+      //       height: 250,
+      //       child: StreamBuilder<QuerySnapshot>(
+      //         stream: FirebaseFirestore.instance
+      //             .collection("items")
+      //             .limit(15)
+      //             .orderBy("publishedDate", descending: true)
+      //             .snapshots(),
+      //         builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //           if (snapshot.hasError) {
+      //             return const Text('Something went wrong');
+      //           }
+
+      //           if (snapshot.connectionState == ConnectionState.waiting) {
+      //             return const Text("Loading");
+      //           }
+
+      //           return GridView.builder(
+      //             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      //               crossAxisCount: 1,
+      //             ),
+      //             itemCount: snapshot.data.docs.length,
+      //             itemBuilder: (BuildContext context, int index) {
+      //               ItemModel model =
+      //                   ItemModel.fromJson(snapshot.data.docs[index].data());
+      //               return sourceInfo(model, context);
+      //             },
+      //           );
+      //         },
+      //       ),
+      //     ),
+      //   ],
+      // ),
+    );
+  }
+
+  Widget sourceInfo(ItemModel model, BuildContext context) {
+    return Card(
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Image.network(
+              model.thumbnailUrl,
+              width: 140.0,
+              height: 140.0,
             ),
           ),
-          SliverPersistentHeader(pinned: true, delegate: SearchBoxDelegate()),
-          // StreamBuilder<QuerySnapshot>(
-          //   stream: FirebaseFirestore.instance.collection("users").snapshots(),
-          //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-          //     if (snapshot.hasError) {
-          //       return const Text('Something went wrong');
-          //     }
+          Expanded(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  model.title,
+                  style: const TextStyle(color: Colors.black, fontSize: 14.0),
+                ),
 
-          //     if (snapshot.connectionState == ConnectionState.waiting) {
-          //       return const Text("Loading");
-          //     }
-          //     return
+                Text(
+                  model.shortInfo,
+                  style: const TextStyle(color: Colors.black54, fontSize: 12.0),
+                ),
+                const SizedBox(height: 20.0),
+                Row(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        color: Colors.pink,
+                      ),
+                      width: 40.0,
+                      height: 40.0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            "50%",
+                            style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          Text(
+                            "OFF",
+                            style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 10.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          r"Origional Price: € " +
+                              model.price /*+ model.price*/ .toString(),
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.grey,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                r"New Price: € " + model.price.toString(),
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
 
-          //         // SliverStaggeredGrid.countBuilder(
-          //         //   crossAxisCount: 1,
-          //         //   staggeredTileBuilder: (context) => const StaggeredTile.fit(1),
-          //         //   itemBuilder: (contex, index) {
-          //         //     Sellers sModel = Sellers.fromJson(snapshot.data!.docs[index]
-          //         //         .data()! as Map<String, dynamic>);
-
-          //         //     return InfoDesign(
-          //         //       context: context,
-          //         //       model: sModel,
-          //         //     );
-          //         //   },
-          //         //   itemCount: snapshot.data!.docs.length,
-          //         // );
-
-          //         //-------
-          //         GridView.builder(
-          //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          //         crossAxisCount: 1,
-          //       ),
-          //       itemCount: snapshot.data!.docs.length,
-          //       itemBuilder: (BuildContext context, int index) {
-          //         Sellers sModel = Sellers.fromJson(snapshot.data!.docs[index]
-          //             .data()! as Map<String, dynamic>);
-          //         return InfoDesign(
-          //           context: context,
-          //           model: sModel,
-          //         );
-          //       },
-          //     );
-          //   },
-          // ),
+                //to implement the cart item aad/remove feature
+              ],
+            ),
+          ),
         ],
       ),
     );

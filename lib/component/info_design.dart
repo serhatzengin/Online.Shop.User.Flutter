@@ -6,7 +6,7 @@ class InfoDesign extends StatefulWidget {
   Sellers? model;
   BuildContext context;
 
-  InfoDesign({this.model, required this.context});
+  InfoDesign({Key? key, this.model, required this.context}) : super(key: key);
 
   @override
   _InfoDesignState createState() => _InfoDesignState();
