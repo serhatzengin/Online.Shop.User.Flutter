@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shop_user/component/custom_drawer.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
-import 'package:online_shop_user/global/global.dart';
+
 import 'package:online_shop_user/view/home/cart/cart_view.dart';
 
 import 'mainpage/mainpage_view.dart';

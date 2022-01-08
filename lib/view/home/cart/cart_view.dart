@@ -49,7 +49,7 @@ class CartPage extends StatelessWidget {
               },
             ),
             //Text(counter.toString()),
-            Text("se")
+            const Text("se")
           ],
         ),
       ),

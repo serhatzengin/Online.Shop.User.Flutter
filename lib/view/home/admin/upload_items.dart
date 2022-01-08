@@ -158,7 +158,7 @@ class _UploadPageState extends State<UploadPage>
       context: context,
       builder: (BuildContext context) {
         return const LoadingDialog(
-          message: "Giriş Yapılıyor, Lütfen Bekeleyiniz!",
+          message: "Ürün Ekleniyor ",
         );
       },
     );
