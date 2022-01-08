@@ -5,7 +5,7 @@ class ItemModel {
   late String shortInfo;
   Timestamp? publishedDate;
   late String thumbnailUrl;
-  String? longDescription;
+  late String longDescription;
   String? status;
   int? price;
 
