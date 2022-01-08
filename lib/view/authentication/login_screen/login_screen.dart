@@ -80,11 +80,9 @@ class _LoginScreenState extends State<LoginScreen> {
         await sharedPreferences!
             .setString("photoUrl", snapshot.data()!["photoUrl"]);
 
-        List<String> cartList =
-            snapshot.data()![EcommerceApp.userCartList].cast<String>();
+        List<String> cartList = snapshot.data()!["userCart"].cast<String>();
 
-        await sharedPreferences!
-            .setStringList(EcommerceApp.userCartList, cartList);
+        await sharedPreferences!.setStringList("userCart", cartList);
 
         Navigator.pop(context);
         Route newRoute = MaterialPageRoute(builder: (c) => const HomePage());

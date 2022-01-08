@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
 import 'package:online_shop_user/global/global.dart';
+import 'package:online_shop_user/view/home/cart/cart_view_model.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -40,6 +42,11 @@ class MainPage extends StatelessWidget {
     ];
 
     return Scaffold(
+      appBar: CustomAppBar(
+        name: "",
+        show: true,
+        showAdminShiftOrders: false,
+      ),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
