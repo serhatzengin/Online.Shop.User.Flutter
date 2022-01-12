@@ -1,13 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:online_shop_user/component/info_design.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
-import 'package:online_shop_user/component/searchbox.dart';
-import 'package:online_shop_user/global/global.dart';
 import 'package:online_shop_user/model/item.dart';
-import 'package:online_shop_user/model/sellers.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -90,8 +86,7 @@ class MainPage extends StatelessWidget {
                   )),
             ),
             //SliverPersistentHeader(pinned: true, delegate: SearchBoxDelegate()),
-            SizedBox(
-              height: 280,
+            Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection("items")
