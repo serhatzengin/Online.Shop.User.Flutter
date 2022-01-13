@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop_user/config/config.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
 import 'package:online_shop_user/global/global.dart';
 import 'package:online_shop_user/view/home/admin/admin_shift_orders.dart';
 import 'package:online_shop_user/view/home/cart/cart_view.dart';
 import 'package:online_shop_user/view/home/cart/cart_view_model.dart';
-import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   bool show;
@@ -39,9 +40,18 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
               children: [
                 IconButton(
                     onPressed: () {
-                      Route route =
-                          MaterialPageRoute(builder: (c) => const CartPage());
-                      Navigator.pushReplacement(context, route);
+                      if (sharedPreferences!
+                              .getStringList("userCart")!
+                              .length ==
+                          1) {
+                        Fluttertoast.showToast(
+                            msg:
+                                "Alışveriş Spetiniz Boş Lütfen Ürün Ekleyiniz");
+                      } else {
+                        Route route =
+                            MaterialPageRoute(builder: (c) => const CartPage());
+                        Navigator.pushReplacement(context, route);
+                      }
                     },
                     icon: const Icon(Icons.shopping_cart)),
                 const Icon(Icons.brightness_1, size: 20, color: Colors.green),

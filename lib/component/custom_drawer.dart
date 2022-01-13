@@ -27,47 +27,45 @@ class CustomDrawer extends StatelessWidget {
               Text(sharedPreferences!.getString("name")!),
             ],
           ),
-          Container(
-            child: Column(
-              children: [
-                const Divider(height: 10),
-                ListTile(
-                  leading: const Icon(Icons.home, color: Colors.black),
-                  title: const Text("Profili Düzenle"),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: const Icon(Icons.reorder, color: Colors.black),
-                  title: const Text("Siparişlerim"),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: const Icon(Icons.history, color: Colors.black),
-                  title: const Text("Geçmiş"),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: const Icon(Icons.search, color: Colors.black),
-                  title: const Text("Ara"),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: const Icon(Icons.add_location, color: Colors.black),
-                  title: const Text("Adres Ekle"),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: const Icon(Icons.home, color: Colors.black),
-                  title: const Text("Şifre Güncelle"),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: const Icon(Icons.exit_to_app, color: Colors.black),
-                  title: const Text("Çıkış Yap"),
-                  onTap: () {},
-                )
-              ],
-            ),
+          Column(
+            children: [
+              const Divider(height: 10),
+              ListTile(
+                leading: const Icon(Icons.home, color: Colors.black),
+                title: const Text("Profili Düzenle"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.reorder, color: Colors.black),
+                title: const Text("Siparişlerim"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.history, color: Colors.black),
+                title: const Text("Geçmiş"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.search, color: Colors.black),
+                title: const Text("Ara"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.add_location, color: Colors.black),
+                title: const Text("Adres Ekle"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.home, color: Colors.black),
+                title: const Text("Şifre Güncelle"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.exit_to_app, color: Colors.black),
+                title: const Text("Çıkış Yap"),
+                onTap: () {},
+              )
+            ],
           )
         ],
       ),

@@ -6,10 +6,12 @@ import 'package:online_shop_user/view/home/mainpage/detail_page.dart';
 class InfoDesign extends StatelessWidget {
   ItemModel? model;
   BuildContext context;
+  final Function? onPressed;
   InfoDesign({
     Key? key,
     this.model,
     required this.context,
+    this.onPressed,
   }) : super(key: key);
 
   @override
