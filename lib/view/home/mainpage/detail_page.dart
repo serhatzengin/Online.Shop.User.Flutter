@@ -1,20 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
 import 'package:online_shop_user/component/custom_button.dart';
-import 'package:online_shop_user/component/custom_drawer.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
 import 'package:online_shop_user/global/global.dart';
-
 import 'package:online_shop_user/model/item.dart';
 import 'package:online_shop_user/view/home/cart/cart_view_model.dart';
-import 'package:online_shop_user/view/home/mainpage/mainpage_view.dart';
-import 'package:provider/provider.dart';
+import 'package:online_shop_user/view/home/homepage.dart';
 
 const boldTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
 const largeTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 20);
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   final ItemModel? itemModel;
 
   const DetailPage({
@@ -23,13 +22,26 @@ class DetailPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    int quantityOfItems = 1;
+  State<DetailPage> createState() => _DetailPageState();
+}
 
+class _DetailPageState extends State<DetailPage> {
+  late double totalAmount;
+
+  @override
+  void initState() {
+    super.initState();
+
+    totalAmount = 0;
+    Provider.of<CartViewModel>(context, listen: false).display(0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         show: false,
-        name: itemModel!.title,
+        name: widget.itemModel!.title,
       ),
       body: Center(
         child: ListView(
@@ -42,22 +54,22 @@ class DetailPage extends StatelessWidget {
                   child: SizedBox(
                       width: 250,
                       height: 250,
-                      child: Image.network(itemModel!.thumbnailUrl)),
+                      child: Image.network(widget.itemModel!.thumbnailUrl)),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      itemModel!.title,
+                      widget.itemModel!.title,
                       style: boldTextStyle,
                     ),
                     const SizedBox(height: 10.0),
                     Text(
-                      itemModel!.longDescription,
+                      widget.itemModel!.longDescription,
                     ),
                     const SizedBox(height: 10.0),
                     Text(
-                      "€ " + itemModel!.price.toString(),
+                      "€ " + widget.itemModel!.price.toString(),
                       style: boldTextStyle,
                     ),
                     const SizedBox(height: 10.0),
@@ -68,14 +80,26 @@ class DetailPage extends StatelessWidget {
             CustomButton(
               buttonText: "Sepete Ekle",
               pressed: () {
-                checkItemInCart(itemModel!.shortInfo, context);
+                checkItemInCart(widget.itemModel!.shortInfo, context);
+                Route route =
+                    MaterialPageRoute(builder: (c) => const HomePage());
+                Navigator.pushReplacement(context, route);
               },
             ),
             CustomButton(
               buttonText: "Anasayfaya Git",
               pressed: () {
                 Route route =
-                    MaterialPageRoute(builder: (c) => const MainPage());
+                    MaterialPageRoute(builder: (c) => const HomePage());
+                Navigator.pushReplacement(context, route);
+              },
+            ),
+            CustomButton(
+              buttonText: "Sepetten Sil",
+              pressed: () {
+                checkItemInCartRemove(widget.itemModel!.shortInfo, context);
+                Route route =
+                    MaterialPageRoute(builder: (c) => const HomePage());
                 Navigator.pushReplacement(context, route);
               },
             ),
@@ -106,5 +130,32 @@ class DetailPage extends StatelessWidget {
     sharedPreferences!.setStringList("userCart", tempCartList);
 
     Provider.of<CartViewModel>(context, listen: false).displayResult();
+  }
+
+  void checkItemInCartRemove(String shortInfoAsID, BuildContext context) {
+    sharedPreferences!.getStringList("userCart")!.contains(shortInfoAsID)
+        ? removeItemFromUserCart(shortInfoAsID, context)
+        : Fluttertoast.showToast(msg: "Ürün Sepette Ekli Değil");
+  }
+
+  removeItemFromUserCart(String shortInfoAsId, BuildContext context) {
+    List<String> tempCartList =
+        sharedPreferences!.getStringList("userCart")!.cast<String>();
+    tempCartList.remove(shortInfoAsId);
+
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(sharedPreferences!.getString("uid"))
+        .update({
+      "userCart": tempCartList,
+    }).then((v) {
+      Fluttertoast.showToast(msg: "Ürün başarılı şekilde silindi");
+
+      sharedPreferences!.setStringList("userCart", tempCartList);
+
+      Provider.of<CartViewModel>(context, listen: false).displayResult();
+
+      totalAmount = 0;
+    });
   }
 }

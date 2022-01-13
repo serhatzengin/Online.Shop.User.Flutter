@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart' as fStorage;
+import 'package:firebase_storage/firebase_storage.dart' as fstorage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,16 +78,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
           debugPrint(fileName.toString());
 
-          fStorage.Reference reference = fStorage.FirebaseStorage.instance
+          fstorage.Reference reference = fstorage.FirebaseStorage.instance
               .ref()
               .child("users")
               .child(fileName);
 
-          fStorage.UploadTask uploadTask = reference.putFile(
+          fstorage.UploadTask uploadTask = reference.putFile(
             File(imageXfile!.path),
           );
 
-          fStorage.TaskSnapshot taskSnapshot =
+          fstorage.TaskSnapshot taskSnapshot =
               await uploadTask.whenComplete(() {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Picture Succesfully Installed..."),

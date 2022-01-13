@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:online_shop_user/component/custom_button_icon.dart';
 import 'package:online_shop_user/component/custom_text_field.dart';
-import 'package:online_shop_user/component/loadingWidget.dart';
 import 'package:online_shop_user/component/loading_dialog.dart';
 import 'package:online_shop_user/component/my_app_bar.dart';
 
