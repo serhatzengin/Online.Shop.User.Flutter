@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:online_shop_user/component/my_app_bar.dart';
 
-class Address extends StatefulWidget {
-  const Address({Key? key}) : super(key: key);
+import 'add_adress_view.dart';
+
+class AddressPage extends StatefulWidget {
+  final double? totalAmount;
+
+  const AddressPage({
+    Key? key,
+    this.totalAmount,
+  }) : super(key: key);
 
   @override
-  _AddressState createState() => _AddressState();
+  _AddressPageState createState() => _AddressPageState();
 }
 
-class _AddressState extends State<Address> {
+class _AddressPageState extends State<AddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(show: true, name: "Adres Seç"),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Route route = MaterialPageRoute(builder: (c) => AddAdress());
+          Navigator.pushReplacement(context, route);
+        },
+        label: const Text("Yeni Adres Ekle"),
+        icon: const Icon(Icons.add_location),
+      ),
       body: Center(
         child: Column(
           children: const [],

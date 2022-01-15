@@ -159,3 +159,5 @@ class _DetailPageState extends State<DetailPage> {
     });
   }
 }
+
+//cached_network_image ile resimler gösterilecek

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:online_shop_user/view/home/adress/adress_view.dart';
 import 'package:provider/provider.dart';
 
 import 'package:online_shop_user/component/info_design.dart';
@@ -34,6 +36,19 @@ class _CartPageState extends State<CartPage> {
         name: "",
         show: true,
         showAdminShiftOrders: false,
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          if (sharedPreferences!.getStringList("userCart")!.length == 1) {
+            Fluttertoast.showToast(msg: "Sepetiniz Boş, Ürün Ekleyiniz :)");
+          } else {
+            Route route = MaterialPageRoute(
+                builder: (c) => AddressPage(totalAmount: totalAmount));
+            Navigator.pushReplacement(context, route);
+          }
+        },
+        label: const Text("Ödemeye Geç"),
+        icon: const Icon(Icons.add_location),
       ),
       body: Center(
         child: Column(

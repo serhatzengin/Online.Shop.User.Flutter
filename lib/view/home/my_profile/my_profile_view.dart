@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shop_user/global/global.dart';
 import 'package:online_shop_user/view/authentication/auth_screen/auth_screen.dart';
+import 'package:online_shop_user/view/home/adress/adress_view.dart';
 
 class MyProfileView extends StatefulWidget {
   const MyProfileView({Key? key}) : super(key: key);
@@ -77,8 +78,12 @@ class _MyProfileViewState extends State<MyProfileView> {
                     child: ListTile(
                       leading:
                           const Icon(Icons.add_location, color: Colors.black),
-                      title: const Text("Adres Ekle"),
-                      onTap: () {},
+                      title: const Text("Adreslerim"),
+                      onTap: () {
+                        Route route = MaterialPageRoute(
+                            builder: (c) => const AddressPage());
+                        Navigator.push(context, route);
+                      },
                     ),
                   ),
                   Card(
