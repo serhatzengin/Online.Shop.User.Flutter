@@ -1,12 +1,12 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 
-class AddressChanger extends ChangeNotifier {
-  int _counter = 0;
+// class AddressChanger extends ChangeNotifier {
+//   int _counter = 0;
 
-  int get count => _counter;
+//   int get count => _counter;
 
-  displayResult(int v) {
-    _counter = v;
-    notifyListeners();
-  }
-}
+//   displayResult(int v) {
+//     _counter = v;
+//     notifyListeners();
+//   }
+// }

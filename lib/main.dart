@@ -1,15 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:online_shop_user/view/home/cart/cart_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:online_shop_user/view/home/cart/cart_view_model.dart';
 import 'package:online_shop_user/view/splash/splash.dart';
 
-import 'Counters/change_addresss.dart';
 import 'Counters/item_quantity.dart';
 import 'Counters/total_money.dart';
 import 'global/global.dart';
+import 'view/home/adress/address_view_model.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

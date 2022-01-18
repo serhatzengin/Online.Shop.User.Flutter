@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:online_shop_user/view/home/adress/adress_view.dart';
+import 'package:online_shop_user/view/home/adress/address_view.dart';
 import 'package:provider/provider.dart';
 
 import 'package:online_shop_user/component/info_design.dart';

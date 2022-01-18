@@ -31,7 +31,7 @@ class AddAdress extends StatelessWidget {
             final model = AddressModel(
               name: cName.text.trim(),
               phoneNumber: cPhoneNumber.text,
-              cFlatHomeNumber: cFlatHomeNumber.text.trim(),
+              flatNumber: cFlatHomeNumber.text.trim(),
               city: cCity.text.trim(),
               state: cState.text.trim(),
               postaCode: cPostaCode.text.trim(),
@@ -46,6 +46,7 @@ class AddAdress extends StatelessWidget {
                 .then((value) {
               Fluttertoast.showToast(msg: "Adres Başarılı Şekilde Eklendi");
               FocusScope.of(context).requestFocus(FocusNode());
+              //textformfieldden veri almayı geçersiz kılar
               formKey.currentState!.reset();
             });
           }

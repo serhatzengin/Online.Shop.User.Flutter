@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shop_user/global/global.dart';
 import 'package:online_shop_user/view/authentication/auth_screen/auth_screen.dart';
-import 'package:online_shop_user/view/home/adress/adress_view.dart';
+import 'package:online_shop_user/view/home/adress/address_view.dart';
 
 class MyProfileView extends StatefulWidget {
   const MyProfileView({Key? key}) : super(key: key);

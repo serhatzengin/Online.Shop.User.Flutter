@@ -1,14 +1,14 @@
 class AddressModel {
-  late String name;
-  late String phoneNumber;
-  late String cFlatHomeNumber;
-  late String city;
-  late String state;
-  late String postaCode;
+  String? name;
+  String? phoneNumber;
+  String? flatNumber;
+  String? city;
+  String? state;
+  String? postaCode;
   AddressModel({
     required this.name,
     required this.phoneNumber,
-    required this.cFlatHomeNumber,
+    required this.flatNumber,
     required this.city,
     required this.state,
     required this.postaCode,
@@ -17,7 +17,7 @@ class AddressModel {
   AddressModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     phoneNumber = json['phoneNumber'];
-    cFlatHomeNumber = json['cFlatHomeNumber'];
+    flatNumber = json['flatNumber'];
     city = json['city'];
     state = json['state'];
     postaCode = json['postaCode'];
@@ -27,7 +27,7 @@ class AddressModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['phoneNumber'] = phoneNumber;
-    data['cFlatHomeNumber'] = cFlatHomeNumber;
+    data['flatNumber'] = flatNumber;
     data['city'] = city;
     data['state'] = state;
     data['postaCode'] = postaCode;
