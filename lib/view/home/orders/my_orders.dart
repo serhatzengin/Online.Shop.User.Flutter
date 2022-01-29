@@ -21,6 +21,10 @@ class MyOrders extends StatelessWidget {
                   .collection("orders")
                   .snapshots(),
               builder: (c, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: Text("Yükleniyor..."));
+                }
+
                 if (snapshot.data!.docs.isEmpty) {
                   return const Center(
                     child: Text(
