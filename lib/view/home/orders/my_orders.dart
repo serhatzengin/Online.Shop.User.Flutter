@@ -1,19 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:online_shop_user/view/home/admin/admin_order_card.dart';
+import 'package:online_shop_user/component/my_app_bar.dart';
+import 'package:online_shop_user/component/order_card.dart';
+import 'package:online_shop_user/global/global.dart';
 
-import '../../../component/my_app_bar.dart';
-import '../../../component/order_card.dart';
-import '../../../global/global.dart';
+class MyOrders extends StatelessWidget {
+  const MyOrders({Key? key}) : super(key: key);
 
-class AdminShiftOrders extends StatefulWidget {
-  const AdminShiftOrders({Key? key}) : super(key: key);
-
-  @override
-  _MyOrdersState createState() => _MyOrdersState();
-}
-
-class _MyOrdersState extends State<AdminShiftOrders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,8 +15,11 @@ class _MyOrdersState extends State<AdminShiftOrders> {
         children: [
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection("orders").snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(sharedPreferences!.getString("uid"))
+                  .collection("orders")
+                  .snapshots(),
               builder: (c, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: Text("Yükleniyor..."));
@@ -32,7 +28,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                 if (snapshot.data!.docs.isEmpty) {
                   return const Center(
                     child: Text(
-                        "Bütün Siparişleri Teslim Ettin Umarım Hızla Yeni Siparişler Alırsın :)"),
+                        "Burası boş duruyor hemen bir sipariş vermelisin :)"),
                   );
                 }
 
@@ -49,14 +45,10 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                                 .get(),
                             builder: (c, snap) {
                               return snap.hasData
-                                  ? AdminOrderCard(
+                                  ? OrderCard(
                                       itemCount: snap.data!.docs.length,
                                       data: snap.data!.docs,
                                       orderID: snapshot.data!.docs[index].id,
-                                      orderBy: snapshot.data!.docs[index]
-                                          ["orderBy"],
-                                      addressID: snapshot.data!.docs[index]
-                                          ["addressID"],
                                     )
                                   : const Center(
                                       child: CircularProgressIndicator());

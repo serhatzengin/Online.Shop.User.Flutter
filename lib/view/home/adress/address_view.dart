@@ -15,7 +15,7 @@ class AddressPage extends StatefulWidget {
 
   const AddressPage({
     Key? key,
-    this.totalAmount,
+    this.totalAmount = 0,
   }) : super(key: key);
 
   @override

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:online_shop_user/model/address.dart';
 import 'package:online_shop_user/view/home/adress/address_view_model.dart';
-import 'package:online_shop_user/view/home/adress/payment_page.dart';
+import 'package:online_shop_user/view/home/payment/payment_page.dart';
 
 import 'wide_button.dart';
 
