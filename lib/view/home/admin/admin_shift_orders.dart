@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:online_shop_user/view/home/admin/admin_order_card.dart';
 
 import '../../../component/my_app_bar.dart';
-import '../../../component/order_card.dart';
-import '../../../global/global.dart';
 
 class AdminShiftOrders extends StatefulWidget {
   const AdminShiftOrders({Key? key}) : super(key: key);
@@ -31,8 +29,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
 
                 if (snapshot.data!.docs.isEmpty) {
                   return const Center(
-                    child: Text(
-                        "Bütün Siparişleri Teslim Ettin Umarım Hızla Yeni Siparişler Alırsın :)"),
+                    child: Text("Yeni Sipariş Aldığında Burada Gözükecek :)"),
                   );
                 }
 
