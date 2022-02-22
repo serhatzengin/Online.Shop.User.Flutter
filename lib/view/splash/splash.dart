@@ -21,9 +21,13 @@ class _SplashState extends State<Splash> {
 
   _navigatetohome() async {
     await Future.delayed(
-      const Duration(milliseconds: 250),
+      const Duration(milliseconds: 500),
       () async {
-        if (firebaseAuth.currentUser != null) {
+        if (firebaseAuth.currentUser == null) {
+          firebaseAuth.signOut();
+          Route newRoute = MaterialPageRoute(builder: (c) => AuthPage());
+          Navigator.pushReplacement(context, newRoute);
+        } else {
           await FirebaseFirestore.instance
               .collection("users")
               .doc(firebaseAuth.currentUser!.uid)
@@ -45,10 +49,6 @@ class _SplashState extends State<Splash> {
               await sharedPreferences!.setStringList("userCart", cartList);
               Route newRoute =
                   MaterialPageRoute(builder: (c) => const HomePage());
-              Navigator.pushReplacement(context, newRoute);
-            } else {
-              firebaseAuth.signOut();
-              Route newRoute = MaterialPageRoute(builder: (c) => AuthPage());
               Navigator.pushReplacement(context, newRoute);
             }
           });

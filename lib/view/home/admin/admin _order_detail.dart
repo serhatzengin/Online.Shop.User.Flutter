@@ -296,5 +296,3 @@ class AdminShippingDetails extends StatelessWidget {
     Fluttertoast.showToast(msg: "Parcel has been Shifted. Confirmed.");
   }
 }
-
-//bilinen hata sipariş detayında tüm ürünler çıkıyor
