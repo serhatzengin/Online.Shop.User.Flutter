@@ -63,7 +63,7 @@ class InfoDesign extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Text(
-                          "50%",
+                          "%50",
                           style: TextStyle(
                               fontSize: 15.0,
                               color: Colors.white,
@@ -80,33 +80,23 @@ class InfoDesign extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        r"Old Price: € " +
-                            model!.price /*+ model.price*/ .toString(),
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.grey,
-                          decoration: TextDecoration.lineThrough,
-                        ),
+                  Text(
+                    r"Old Price: € " + model!.price.toString(),
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.grey,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Text(
+                      r"New Price: € " + model!.price.toString(),
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.grey,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              r"New Price: € " + model!.price.toString(),
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
 
                   //to implement the cart item aad/remove feature
