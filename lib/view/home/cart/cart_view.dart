@@ -101,7 +101,7 @@ class _CartPageState extends State<CartPage> {
                         }
 
                         if (snapshot.data.docs.length - 1 == index) {
-                          WidgetsBinding.instance!.addPostFrameCallback((t) {
+                          WidgetsBinding.instance.addPostFrameCallback((t) {
                             Provider.of<CartViewModel>(
                               context,
                               listen: false,
